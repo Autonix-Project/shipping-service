@@ -25,6 +25,7 @@ public class ShippingResponseDTO {
     private String shippingState;
 
     private LocalDateTime createdAt;
+    private LocalDateTime arrivalAt;
 
     public static ShippingResponseDTO fromEntity(ShippingEntity entity) {
         return ShippingResponseDTO.builder()
@@ -34,6 +35,7 @@ public class ShippingResponseDTO {
                 .shippingCarId(entity.getShippingCarId())
                 .shippingCarModel(entity.getShippingCarModel())
                 .createdAt(entity.getCreatedAt())
+                .arrivalAt(entity.getArrivalAt())
                 .build();
     }
 

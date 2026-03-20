@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,13 @@ public class ShippingController {
 
         return ResponseEntity.ok(shippingService.getList());
 
+    }
+
+    @GetMapping("/{shippingId}")
+    public ResponseEntity<ShippingResponseDTO> getMethodName(@PathVariable Integer shippingId) {
+        log.info("=== Shipping Controller detail ===");
+
+        return ResponseEntity.ok(shippingService.getShipping(shippingId));
     }
 
 }
