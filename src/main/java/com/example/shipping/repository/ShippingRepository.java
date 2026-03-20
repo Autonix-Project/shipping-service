@@ -8,4 +8,6 @@ import com.example.shipping.domain.entity.ShippingEntity;
 @Repository
 public interface ShippingRepository extends JpaRepository<ShippingEntity, Integer> {
 
+    boolean existsByShippingNumber(String shippingNumber);
+
 }

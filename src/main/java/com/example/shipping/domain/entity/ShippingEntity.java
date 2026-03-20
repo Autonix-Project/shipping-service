@@ -29,7 +29,11 @@ public class ShippingEntity {
     @Column(name = "shipping_number", unique = true)
     private String shippingNumber;
 
+    @Column(name = "shipping_car_id")
     private String shippingCarId;
+
+    @Column(name = "shipping_car_model")
+    private String shippingCarModel;
 
     @Column(name = "shipping_state")
     private String shippingState;
