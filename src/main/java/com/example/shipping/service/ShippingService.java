@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.shipping.domain.dto.ShippingResponseDTO;
 import com.example.shipping.domain.entity.ShippingEntity;
+import com.example.shipping.exception.CustomException;
+import com.example.shipping.exception.ErrorCode;
 import com.example.shipping.repository.ShippingRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,7 @@ public class ShippingService {
         log.info("=== Shipping Service getShipping ===");
 
         ShippingEntity shipping = shippingRepository.findById(shipping_id)
-                .orElseThrow(() -> new RuntimeException("주문 없음"));
+                .orElseThrow(() -> new CustomException(ErrorCode.SHIPPING_NOT_FOUND));
 
         return ShippingResponseDTO.fromEntity(shipping);
     }
