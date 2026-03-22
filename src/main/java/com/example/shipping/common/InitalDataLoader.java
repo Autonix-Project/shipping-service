@@ -1,4 +1,4 @@
-package com.example.shipping.init;
+package com.example.shipping.common;
 
 import java.time.LocalDateTime;
 
@@ -17,32 +17,34 @@ import lombok.extern.slf4j.Slf4j;
 public class InitalDataLoader implements CommandLineRunner {
 
     private final ShippingRepository shippingRepository;
+    private final CarProvider carProvider;
 
     @Override
     public void run(String... args) throws Exception {
         log.info("=== InitialDataLoaer run called ===");
-        saveIfNotExists("SHIP-001", "출고대기", "CAR-001", "Model X", 0L);
-        saveIfNotExists("SHIP-002", "배송중", "CAR-002", "Model S", 2L);
-        saveIfNotExists("SHIP-003", "배송완료", "CAR-001", "Model X", 3L);
+        saveIfNotExists("SHIP-001", "출고대기", 0L);
+        saveIfNotExists("SHIP-002", "배송중", 2L);
+        saveIfNotExists("SHIP-003", "배송완료", 3L);
     }
 
-    private void saveIfNotExists(String shippingNumber, String shippingState, String shippingCarId,
-            String carModel,
+    private void saveIfNotExists(String shippingNumber, String shippingState,
+
             Long daysToAdd) {
         if (shippingRepository.existsByShippingNumber(shippingNumber)) {
             return;
         }
 
+        CarProvider.CarInfo car = carProvider.getRandomCar();
         LocalDateTime now = LocalDateTime.now();
 
         ShippingEntity ship = ShippingEntity.builder()
                 .shippingNumber(shippingNumber)
                 .shippingState(shippingState)
-                .shippingCarId(shippingCarId)
-                .carModel(carModel)
+                .shippingCarId(car.getCarId())
+                .carModel(car.getCarModel())
                 .createdAt(now)
                 .arrivalAt(now.plusDays(2))
-                .order_id(1)
+                .orderId(1)
                 .build();
 
         shippingRepository.save(ship);

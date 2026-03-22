@@ -37,6 +37,19 @@ dependencies {
 
 	//swagger api + springboot 3.x
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+
+	//openfeign - sync , 서비스 간 통신 지원
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	// openfeign + circuitbreak 실행
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+}
+
+dependencyManagement{
+	imports{
+		//sprig-cloud 일 때의 버전 일치를 위함
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2024.0.0'
+	}
 }
 
 tasks.named('test') {

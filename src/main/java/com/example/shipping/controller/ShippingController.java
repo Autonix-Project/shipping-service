@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.shipping.domain.dto.ShippingRequestDTO;
 import com.example.shipping.domain.dto.ShippingResponseDTO;
 import com.example.shipping.service.ShippingService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/shippings")
@@ -36,6 +39,13 @@ public class ShippingController {
         log.info("=== Shipping Controller detail ===");
 
         return ResponseEntity.ok(shippingService.getShipping(shippingId));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ShippingResponseDTO> create(@RequestBody ShippingRequestDTO request) {
+        log.info("=== Shipping Controller create ===");
+
+        return ResponseEntity.ok(shippingService.create(request));
     }
 
 }

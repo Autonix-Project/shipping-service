@@ -12,11 +12,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "SHIPPINGS")
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShippingEntity {
@@ -44,6 +46,7 @@ public class ShippingEntity {
     @Column(name = "arrival_at")
     private LocalDateTime arrivalAt;
 
-    private Integer order_id;
+    @Column(name = "order_id")
+    private Integer orderId;
 
 }
