@@ -27,7 +27,7 @@ public class InitalDataLoader implements CommandLineRunner {
     }
 
     private void saveIfNotExists(String shippingNumber, String shippingState, String shippingCarId,
-            String shippingCarModel,
+            String carModel,
             Long daysToAdd) {
         if (shippingRepository.existsByShippingNumber(shippingNumber)) {
             return;
@@ -39,9 +39,10 @@ public class InitalDataLoader implements CommandLineRunner {
                 .shippingNumber(shippingNumber)
                 .shippingState(shippingState)
                 .shippingCarId(shippingCarId)
-                .shippingCarModel(shippingCarModel)
+                .carModel(carModel)
                 .createdAt(now)
                 .arrivalAt(now.plusDays(2))
+                .order_id(1)
                 .build();
 
         shippingRepository.save(ship);

@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "SHIPPING_TBL")
+@Table(name = "SHIPPINGS")
 @Builder
 @Getter
 @NoArgsConstructor
@@ -32,8 +32,8 @@ public class ShippingEntity {
     @Column(name = "shipping_car_id")
     private String shippingCarId;
 
-    @Column(name = "shipping_car_model")
-    private String shippingCarModel;
+    @Column(name = "car_model")
+    private String carModel;
 
     @Column(name = "shipping_state")
     private String shippingState;

@@ -21,7 +21,7 @@ public class ShippingResponseDTO {
 
     private String shippingNumber;
     private String shippingCarId;
-    private String shippingCarModel;
+    private String carModel;
     private String shippingState;
 
     private LocalDateTime createdAt;
@@ -33,7 +33,7 @@ public class ShippingResponseDTO {
                 .shippingNumber(entity.getShippingNumber())
                 .shippingState(entity.getShippingState())
                 .shippingCarId(entity.getShippingCarId())
-                .shippingCarModel(entity.getShippingCarModel())
+                .carModel(entity.getCarModel())
                 .createdAt(entity.getCreatedAt())
                 .arrivalAt(entity.getArrivalAt())
                 .build();
