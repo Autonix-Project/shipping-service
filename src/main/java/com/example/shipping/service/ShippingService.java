@@ -45,16 +45,14 @@ public class ShippingService {
     public ShippingResponseDTO create(ShippingRequestDTO request) {
         log.info("=== Shipping Service create ===");
 
-        ShippingEntity saved = shippingRepository.save(request.toEntity());
+        ShippingEntity entity = request.toEntity();
 
-        // shippingNumber
-        String shippingNumber = String.format("SHIP-%03d", saved.getShippingId());
-        saved.setShippingNumber(shippingNumber);
-
-        // ShippingCar
         CarProvider.CarInfo car = carProvider.getRandomCar();
-        saved.setCarModel(car.getCarModel());
-        saved.setShippingCarId(car.getCarId());
+        entity.assignCar(car);
+
+        ShippingEntity saved = shippingRepository.save(entity);
+
+        saved.assignShippingNumber();
 
         return ShippingResponseDTO.fromEntity(saved);
     }

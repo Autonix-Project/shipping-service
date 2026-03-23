@@ -2,6 +2,8 @@ package com.example.shipping.domain.entity;
 
 import java.time.LocalDateTime;
 
+import com.example.shipping.common.CarProvider;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,13 +14,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "SHIPPINGS")
 @Builder
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShippingEntity {
@@ -49,4 +49,12 @@ public class ShippingEntity {
     @Column(name = "order_id")
     private Integer orderId;
 
+    public void assignShippingNumber() {
+        this.shippingNumber = String.format("SHIP-%03d", this.shippingId);
+    }
+
+    public void assignCar(CarProvider.CarInfo car) {
+        this.carModel = car.getCarModel();
+        this.shippingCarId = car.getCarId();
+    }
 }
