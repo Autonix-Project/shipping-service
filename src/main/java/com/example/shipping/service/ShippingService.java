@@ -12,6 +12,7 @@ import com.example.shipping.exception.CustomException;
 import com.example.shipping.exception.ErrorCode;
 import com.example.shipping.repository.ShippingRepository;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,7 @@ public class ShippingService {
     }
 
     @Transactional
+    @CircuitBreaker(name = "shippingService")
     public ShippingResponseDTO create(ShippingRequestDTO request) {
         log.info("=== Shipping Service create ===");
 

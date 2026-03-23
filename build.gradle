@@ -43,6 +43,10 @@ dependencies {
 
 	// openfeign + circuitbreak 실행
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+
+	//kafka - async
+	implementation 'org.springframework.kafka:spring-kafka'
+
 }
 
 dependencyManagement{
