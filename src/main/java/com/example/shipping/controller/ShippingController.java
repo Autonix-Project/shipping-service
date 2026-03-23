@@ -12,6 +12,8 @@ import com.example.shipping.domain.dto.ShippingRequestDTO;
 import com.example.shipping.domain.dto.ShippingResponseDTO;
 import com.example.shipping.service.ShippingService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/shippings")
 @RequiredArgsConstructor
+@Tag(name = "Shipping Service", description = "Shipping Service API")
 @Slf4j
 public class ShippingController {
 
     private final ShippingService shippingService;
 
     @GetMapping
+    @Operation(summary = "배송 주문 전체 조회", description = "배송 주문 전체 조회에 사용하는 API")
     public ResponseEntity<List<ShippingResponseDTO>> list() {
 
         log.info("=== Shipping Controller list ===");
@@ -35,6 +39,7 @@ public class ShippingController {
     }
 
     @GetMapping("/{shippingId}")
+    @Operation(summary = "특정 배송 주문 조회", description = "배송 주문 Id로 특정 배송 주문 한 개 조회할 때 사용하는 API")
     public ResponseEntity<ShippingResponseDTO> getMethodName(@PathVariable Integer shippingId) {
         log.info("=== Shipping Controller detail ===");
 
@@ -42,6 +47,7 @@ public class ShippingController {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "배송 주문 생성", description = "QC_PASS 된 주문에 대해 배송 주문 생성하는 API")
     public ResponseEntity<ShippingResponseDTO> create(@RequestBody ShippingRequestDTO request) {
         log.info("=== Shipping Controller create ===");
 
