@@ -46,14 +46,11 @@ public class ShippingController {
         return ResponseEntity.ok(shippingService.getShipping(shippingId));
     }
 
-    // @PostMapping("/create")
-    // @Operation(summary = "배송 주문 생성", description = "QC_PASS 된 주문에 대해 배송 주문 생성하는
-    // API")
-    // public ResponseEntity<ShippingResponseDTO> create(@RequestBody
-    // ShippingRequestDTO request) {
-    // log.info("=== Shipping Controller create ===");
-
-    // return ResponseEntity.ok(shippingService.create(request));
-    // }
+    @PostMapping("/create")
+    @Operation(summary = "배송 주문 생성", description = "QC_PASS 된 주문에 대해 배송 주문 생성하는 API")
+    public ResponseEntity<ShippingResponseDTO> create(@RequestBody ShippingRequestDTO request) {
+        log.info("=== Shipping Controller create ===");
+        return ResponseEntity.ok(shippingService.create(request));
+    }
 
 }
