@@ -18,7 +18,7 @@ public class ShippingConsumer {
     private final ShippingService shippingService;
     private final ObjectMapper objectMapper;
 
-    @KafkaListener(topics = "shipping.ready")
+    @KafkaListener(topics = "shipping.ready", groupId = "shipping-group")
     public void shippingConsumer(String message) {
 
         log.info("Kafka message received: {}", message);
