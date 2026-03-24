@@ -48,36 +48,29 @@ public class ShippingService {
     public ShippingResponseDTO create(ShippingRequestDTO request) {
         log.info("=== Shipping Service create ===");
 
-        ShippingEntity saved = shippingRepository.save(request.toEntity());
+        ShippingEntity entity = request.toEntity();
 
-        // shippingNumber
-        String shippingNumber = String.format("SHIP-%03d", saved.getShippingId());
-        saved.setShippingNumber(shippingNumber);
-
-        // order-service에서 차종 조회
+        // order-service에서 차종 조회, 실패 시 mock 사용
         if (request.getOrderId() != null) {
             try {
                 InternalOrderResponse order = orderServiceClient.getOrderInternal(request.getOrderId()).getData();
                 if (order != null) {
-                    saved.setCarModel(order.getCarModel());
-                    saved.setShippingCarId("VH-" + String.format("%04d", saved.getShippingId()));
+                    entity.setCarModel(order.getCarModel());
+                    entity.setShippingCarId("VH-" + String.format("%04d", request.getOrderId()));
                 } else {
-                    setMockCar(saved);
+                    entity.assignCar(carProvider.getRandomCar());
                 }
             } catch (Exception e) {
                 log.warn("order-service 조회 실패, mock 차량 사용: {}", e.getMessage());
-                setMockCar(saved);
+                entity.assignCar(carProvider.getRandomCar());
             }
         } else {
-            setMockCar(saved);
+            entity.assignCar(carProvider.getRandomCar());
         }
 
-        return ShippingResponseDTO.fromEntity(saved);
-    }
+        ShippingEntity saved = shippingRepository.save(entity);
+        saved.assignShippingNumber();
 
-    private void setMockCar(ShippingEntity entity) {
-        CarProvider.CarInfo car = carProvider.getRandomCar();
-        entity.setCarModel(car.getCarModel());
-        entity.setShippingCarId(car.getCarId());
+        return ShippingResponseDTO.fromEntity(saved);
     }
 }
